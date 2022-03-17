@@ -33,7 +33,7 @@ class Solution {
                          crossWord(board, i+1, j, startIndex+1, word) ||
                          crossWord(board, i, j-1, startIndex+1, word) ||
                          crossWord(board, i, j+1, startIndex+1, word);
-        // restore the element of board[i][j] with the char at word's startIndex
+        h the char at word's startIndex
         board[i][j] = word.charAt(startIndex);
         // if everything is fine, then exist will be true. Else it will be false
         return exists;
