@@ -1,7 +1,6 @@
 class Solution {
     int row;
     int col;
-    
     public boolean exist(char[][] board, String word) {
         row = board.length;
         col = board[0].length;
