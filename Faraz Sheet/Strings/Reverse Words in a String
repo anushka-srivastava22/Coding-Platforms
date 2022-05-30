@@ -1,0 +1,28 @@
+class Solution {
+    public String reverseWords(String s) {
+        
+        StringBuilder rev = new StringBuilder();
+        int count = 0, last = 0, start = 0;
+        
+        for(int i=s.length()-1;i>=0;i--)
+        {
+            if(s.charAt(i) != ' ')
+            {
+                last = i;
+                while(i>0 && s.charAt(i-1) != ' ')
+                {
+                    i--;
+                }
+                start = i;
+                if(count > 0)
+                {
+                    rev.append(" ");
+                }
+                rev.append(s.substring(start,last+1));
+                count++;
+            }
+        }
+        return rev.toString();
+        
+    }
+}
