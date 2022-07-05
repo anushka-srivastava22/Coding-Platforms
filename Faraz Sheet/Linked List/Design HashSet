@@ -1,0 +1,25 @@
+class MyHashSet {
+    
+    ArrayList<Integer> res;
+    
+    public MyHashSet() {
+        res = new ArrayList<>();
+    }
+    
+    public void add(int key) {
+        if(!res.contains(key))
+        {
+            res.add(key);
+        }
+    }
+    
+    public void remove(int key) {
+        if(res.contains(key)){
+            res.remove(res.indexOf(key));               
+        }
+    }
+    
+    public boolean contains(int key) {
+        return res.contains(key);
+    }
+}
