@@ -1,0 +1,35 @@
+class Solution {
+    
+    public List<List<Integer>> permuteUnique(int[] nums) {
+        
+        HashSet<ArrayList<Integer>> set=new HashSet<>();
+        
+        boolean visited[] = new boolean[nums.length];
+        Arrays.fill(visited,false);
+        
+        findUniquePermute(0, nums,new ArrayList<>(),visited,set);
+        
+        List<List<Integer>> res=new ArrayList<>(set);
+        return res;
+    }
+    
+    public void findUniquePermute(int i,int nums[], ArrayList<Integer> curr, boolean visited[], HashSet<ArrayList<Integer>> set)
+    {
+        if(curr.size() == nums.length)
+        {
+            set.add(new ArrayList<>(curr));
+            return;
+        }
+        for(int j=0;j<nums.length;j++)
+        {
+            if(!visited[j])
+            {
+                visited[j] = true;
+                curr.add(nums[j]);
+                findUniquePermute(j,nums,curr,visited,set);
+                curr.remove(curr.size()-1);
+                visited[j] = false;
+            }
+        }
+    }
+}
