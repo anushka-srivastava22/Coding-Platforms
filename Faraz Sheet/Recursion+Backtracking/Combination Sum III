@@ -1,0 +1,25 @@
+class Solution {
+    public List<List<Integer>> combinationSum3(int k, int n) {
+        List<List<Integer>> res=new ArrayList<>();
+        List<Integer> curr=new ArrayList<>();
+        findCombineSum(1,k,n,0,curr,res);
+        return res;
+    }
+    public void findCombineSum(int i,int k, int n, int sum, List<Integer> curr, List<List<Integer>> res)
+    {
+        if(i>10 || sum>n)
+        {
+            return;
+        }
+        if(sum == n && curr.size() == k)
+        {
+            res.add(new ArrayList<>(curr));
+            return;
+        }
+        curr.add(i);
+        findCombineSum(i+1,k,n,sum+i,curr,res);
+        curr.remove(curr.size()-1);
+        findCombineSum(i+1,k,n,sum,curr,res);
+        return;
+    }
+}
