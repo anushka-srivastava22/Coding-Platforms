@@ -1,0 +1,44 @@
+class Solution {
+    
+    private int result = 0;
+    public int maxLength(List<String> arr) {
+        
+        if(arr == null || arr.size() == 0)
+        {
+            return result;
+        }
+        backtrack(arr,"",0);
+        return result;
+    }
+    public void backtrack(List<String> arr, String path, int index)
+    {
+        boolean isUniqueChar = check(path);
+        if(isUniqueChar)
+        {
+            result = Math.max(result,path.length());
+        }
+        if(index == arr.size() || !isUniqueChar)
+        {
+            return;
+        }
+        for(int i=index;i<arr.size();i++)
+        {
+            String currpath = path;
+            backtrack(arr,path+arr.get(i),i+1);
+            path = currpath;
+        }
+    }
+    public boolean check(String path)
+    {
+        HashSet<Character> set=new HashSet<>();
+        for(char ch:path.toCharArray())
+        {
+            if(set.contains(ch))
+            {
+               return false; 
+            }
+            set.add(ch);
+        }
+        return true;
+    }
+}
