@@ -1,0 +1,54 @@
+class Solution {
+    public List<List<String>> accountsMerge(List<List<String>> accounts) {
+        Map<String, List<String>> adj = buildAdjList(accounts);
+        Set<String> visited = new HashSet<String>();
+        List<List<String>> res = new ArrayList<List<String>>();
+        
+        for(List<String> acc: accounts){
+            String name = acc.get(0);
+            String fst = acc.get(1);
+            if(!visited.contains(fst)){
+                List<String> r = new ArrayList<>();
+                if(acc.size()>2){
+                    dfs(fst, adj, visited, r); 
+                    Collections.sort(r);
+                }else{
+                    r.add(fst);
+                }
+                r.add(0, name);
+                res.add(r);
+            }
+        }
+        return res;
+    }
+    
+    
+    private void dfs(String curr, Map<String, List<String>> adj, Set<String> visited, List<String> res){
+        if(visited.contains(curr) || !adj.containsKey(curr)) return;
+        visited.add(curr);
+        res.add(curr);
+        for(String a: adj.get(curr)){
+            dfs(a, adj, visited, res);
+        }
+    }
+    
+    private Map<String, List<String>> buildAdjList(List<List<String>> accounts){
+        Map<String, List<String>> map = new HashMap<String, List<String>>();
+        for(List<String> acc : accounts){
+            String fst = acc.get(1);
+            for(int i = 2; i < acc.size(); i++){
+                String a = acc.get(i);
+                if(!map.containsKey(a)){
+                    map.put(a, new ArrayList<String>());
+                }
+                if(!map.containsKey(fst)){
+                    map.put(fst, new ArrayList<String>());
+                }
+                map.get(a).add(fst);
+                map.get(fst).add(a);
+            }
+        }
+        return map;
+    }
+    
+}
