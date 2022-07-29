@@ -1,0 +1,49 @@
+class Solution {
+    public int closedIsland(int[][] grid) {
+        if(grid.length == 0)
+        {
+            return 0;
+            
+        }
+        int row = grid.length;
+        int col = grid[0].length;
+        int closedIslands = 0;
+        for(int i=0;i<row-1;i++)
+        {
+            for(int j=0;j<col-1;j++)
+            {
+                if(grid[i][j] == 0)
+                {
+                    if(isClosedIslands(grid,i,j,row,col))
+                    {
+                        closedIslands++;
+                    }
+                }
+            }
+        }
+        return closedIslands;
+    }
+    private boolean isClosedIslands(int grid[][], int i, int j, int row, int col) 
+    {
+        if(grid[i][j] == -1 || grid[i][j] == 1)
+        {
+            return true;
+        }
+        if(isBoundary(i,j,row,col))
+        {
+            return false;
+        }
+        grid[i][j] = -1;
+        boolean up=true, down=true, left=true, right=true;
+        up = isClosedIslands(grid,i-1,j,row,col);
+        down = isClosedIslands(grid,i,j-1,row,col);
+        left = isClosedIslands(grid,i+1,j,row,col);
+        right = isClosedIslands(grid,i,j+1,row,col);
+        
+        return up && down && left && right;
+    }
+    private boolean isBoundary(int i,int j, int row,int col)
+    {
+        return i==0||j==0||i==row-1||j==col-1;
+    }
+}
