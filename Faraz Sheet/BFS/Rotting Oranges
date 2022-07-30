@@ -1,0 +1,67 @@
+class Solution {
+    
+    int R[] = {-1,0,1,0};
+    int C[] = {0,1,0,-1};
+    int EMPTY = 0;
+    int FRESH = 1;
+    int ROTTEN = 2;
+    
+    public int orangesRotting(int[][] grid) {
+        
+        int m = grid.length;
+        int n = grid[0].length;
+        Queue<int[]> q=new LinkedList<>();
+        
+        int max = 0;
+        int fresh = 0;
+        int rotten = 0;
+        
+        for(int i=0;i<m;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if(grid[i][j] == FRESH)
+                {
+                    fresh++;
+                }
+                if(grid[i][j] == ROTTEN)
+                {
+                    q.add(new int[]{i,j});
+                    rotten++;
+                }
+            }
+        }
+        
+        if(fresh <= 0)
+        {
+            return 0;
+        }
+        
+        while(!q.isEmpty())
+        {
+            int size = q.size();
+            for(int i=0;i<size;i++)
+            {
+                int node[] = q.remove();
+                int r = node[0];
+                int c = node[1];
+                for(int d=0;d<R.length;d++)
+                {
+                    int nr = r + R[d];
+                    int nc = c + C[d];
+                    if (nr < 0 || nr >= m || nc < 0 || nc >= n || grid[nr][nc] != FRESH) {
+                        continue;
+                    }
+                    
+                    grid[nr][nc] = ROTTEN;
+                    fresh--;
+                    if (fresh == 0) return max + 1;
+                    q.add(new int[]{ nr, nc});
+                }
+            }
+            max++; 
+        }
+        return fresh > 0 ? -1 : max - 1;
+        
+    }
+}
