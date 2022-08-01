@@ -1,0 +1,38 @@
+class Solution {
+    public int minimumJumps(int[] forbidden, int a, int b, int x) {
+        
+        Set<Integer> visited = new HashSet<>();
+        int limit = 2000 + 2 * b + 1;
+        for (int e : forbidden) {
+            visited.add(e);
+        }
+        int steps = 0;
+        Queue<Pair<Integer, Boolean>> q = new LinkedList<>();
+        q.offer(new Pair<Integer, Boolean>(0, true));
+        while (!q.isEmpty()) {
+            int size = q.size();
+            for (int i = 0; i < size; i++) {
+                Pair<Integer, Boolean> pair = q.poll();
+                int num = pair.getKey();
+                boolean canJumpBackward = pair.getValue();
+                if (num == x) {
+                    return steps;
+                }
+                if (canJumpBackward) {
+                   int backwardStep = num - b;
+                   if (backwardStep > 0 && !visited.contains(backwardStep)) {
+                       q.offer(new Pair<Integer, Boolean>(backwardStep, false));
+                       visited.add(backwardStep);
+                   }
+                }
+                int forwardStep = num + a;
+                if (forwardStep < limit && !visited.contains(forwardStep)) {
+                    q.offer(new Pair<Integer, Boolean>(forwardStep, true));
+                    visited.add(forwardStep);
+                }
+            }
+            steps++;
+        }
+        return -1;
+    }
+}
