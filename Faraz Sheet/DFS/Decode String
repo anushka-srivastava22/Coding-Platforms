@@ -1,0 +1,43 @@
+class Solution {
+     public String decodeString(String str) {
+        
+        StringBuilder result = new StringBuilder();
+        StringBuilder temp = new StringBuilder();
+
+        int index = 0;
+        for(;index<str.length();) {
+            index = buildString(str, index, temp);
+            result.append(temp);
+            temp = new StringBuilder();
+        }
+
+        return result.toString();
+    }
+
+    private int buildString(String str, int index, StringBuilder temp) {
+
+        
+        if(index >= str.length() || str.charAt(index) == ']') return index;
+           
+       
+        char c = str.charAt(index);  
+        if(c >= '0' && c <= '9') {
+            int count = 1;
+            while(index+count < str.length() && str.charAt(index+count) >= '0' && str.charAt(index+count) <= '9') {
+                count++;
+            }
+
+            int num = Integer.parseInt(str.substring(index, index+count));
+            
+            StringBuilder sub = new StringBuilder();
+            
+            index = buildString(str, index+count+1, sub);
+
+            while(num-- > 0) temp.append(sub);
+        } else {
+            temp.append(c);
+        }
+        
+        return buildString(str, index+1, temp);
+    }
+}
