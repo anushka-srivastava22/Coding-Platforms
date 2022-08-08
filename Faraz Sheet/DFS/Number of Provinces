@@ -1,0 +1,34 @@
+class Solution {
+    boolean visited[];
+    int[][] connected;
+    public int findCircleNum(int[][] isConnected) {
+        visited = new boolean[isConnected.length];
+        connected = isConnected;
+        int count =0;
+        for(int i=0;i<isConnected.length;i++)
+        {
+            if(!visited[i])
+            {
+                count++;
+                dfs(i);
+            }
+        }
+        return count;
+    }
+    public void dfs(int index)
+    {
+        if(visited[index])
+        {
+            return;
+        }
+        visited[index] = true;
+        int direct[] = connected[index];
+        for(int i=0;i<direct.length;i++)
+        {
+            if(direct[i] == 1 && !visited[i])
+            {
+                dfs(i);
+            }
+        }
+    }
+}
