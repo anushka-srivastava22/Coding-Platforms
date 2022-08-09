@@ -1,0 +1,22 @@
+class Solution {
+    List<List<Integer>> paths = new LinkedList<>();
+    
+    public List<List<Integer>> allPathsSourceTarget(int[][] graph) {
+        LinkedList<Integer> path = new LinkedList<>();
+        
+        traverse(graph, 0, path);
+        
+        return paths;
+    }
+
+    private void traverse(int[][] graph, int s, LinkedList<Integer> path) {
+        path.add(s);
+        if(s == graph.length - 1){
+            paths.add(new LinkedList<>(path));
+        }
+        for (int neighbor : graph[s]) {
+            traverse(graph, neighbor, path);
+        }
+        path.removeLast();
+    }
+}
