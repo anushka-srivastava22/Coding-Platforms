@@ -1,0 +1,41 @@
+class Solution {
+    public boolean divisorGame(int n) {
+        
+        int dp[] = new int[n+1];
+        Arrays.fill(dp,-1);
+        return helper(n,dp);
+        
+    }
+    
+    boolean helper(int n, int dp[])
+    {
+        if(n<=1)
+        {
+            return false;
+        }
+        if(dp[n]!=-1)
+        {
+            if(dp[n]==0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        for(int x=1;x<n;x++)
+        {
+            if(n%x==0)
+            {
+                if(!helper(n-x,dp))
+                {
+                    dp[n]=1;
+                    return true;
+                }
+            }
+        }
+        dp[n]=0;
+        return false;
+    }
+}
