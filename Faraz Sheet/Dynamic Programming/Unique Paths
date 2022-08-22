@@ -1,0 +1,32 @@
+class Solution {
+    public int uniquePaths(int m, int n) {
+        int dp[][] = new int[m+1][n+1];
+        for(int[] rows: dp)
+        {
+            Arrays.fill(rows,-1);
+        }
+        return checkUniquePaths(m-1,n-1,0,0,dp);
+    }
+    public int checkUniquePaths(int m, int n, int i, int j, int[][] dp)
+    {
+        if(i==m && j == n)
+        {
+            return 1;
+        }
+        if(dp[i][j] != -1)
+        {
+            return dp[i][j];
+        }
+        int count = 0;
+        if(i+1<=m)
+        {
+            count += checkUniquePaths(m,n,i+1,j,dp);
+        }
+        if(j+1<=n)
+        {
+            count += checkUniquePaths(m,n,i,j+1,dp);
+        }
+        return dp[i][j] = count;
+    }
+}
+
