@@ -1,0 +1,19 @@
+class Solution {
+    public int result = 0;
+    public int diameterOfBinaryTree(TreeNode root) {
+        
+        max(root);
+        return result;
+    }
+    public int max(TreeNode root)
+    {
+        if(root == null)
+        {
+            return 0;
+        }
+        int l = max(root.left);
+        int r = max(root.right);
+        result = Math.max(result,l+r);
+        return Math.max(l,r)+1;
+    }
+}
