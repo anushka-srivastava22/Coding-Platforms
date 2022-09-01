@@ -1,0 +1,21 @@
+class Solution {
+    int res = 0;
+    public int rangeSumBST(TreeNode root, int low, int high) {
+        calc(root,low,high);
+        return res;
+    }
+    public void calc(TreeNode root, int low, int high)
+    {
+        if(root == null)
+        {
+            return;
+        }
+        if(root.val>=low && root.val<=high)
+        {
+            res += root.val;
+        }
+        calc(root.left,low,high);
+        calc(root.right,low,high);
+        return;   
+    }
+}
