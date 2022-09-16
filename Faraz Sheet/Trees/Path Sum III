@@ -1,0 +1,29 @@
+class Solution {
+    ArrayList<Long> path=new ArrayList<>();
+    int count = 0;
+    public int pathSum(TreeNode root, int targetSum) {
+        solve(root,targetSum);
+        return count;
+    }
+    void solve(TreeNode root, int k)
+    {
+        if(root == null)
+        {
+            return;
+        }
+        path.add((long)root.val);
+        solve(root.left,k);
+        solve(root.right,k);
+        int size = path.size();
+        long sum = 0;
+        for(int i=size-1;i>=0;i--)
+        {
+            sum += path.get(i);
+            if(sum==k)
+            {
+                count++;
+            }
+        }
+        path.remove(path.size()-1);
+    }
+}
