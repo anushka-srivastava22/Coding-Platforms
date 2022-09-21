@@ -1,0 +1,35 @@
+class Solution {
+    public String removeKdigits(String num, int k) {
+        if(num.length() <= k)
+        {
+            return "0";
+        }
+        int digits = num.length() - k;
+        int top = -1;
+        int start = 0;
+        char number[] = num.toCharArray();
+        for(int i=0;i<number.length;i++)
+        {
+            while(top >= 0 && number[top] > number[i] && k>0)
+            {
+                top--;
+                k--;
+            }
+            number[++top] = number[i];
+        }
+        while(start <= top && number[start] == '0')
+        {
+            start++;
+        }
+        String ans = "";
+        for(int i=start;i<digits;i++)
+        {
+            ans += number[i];
+        }
+        if(ans.equals(""))
+        {
+            return "0";
+        }
+        return ans;
+    }
+}
