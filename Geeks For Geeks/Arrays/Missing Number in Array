@@ -1,0 +1,10 @@
+class Solution {
+    int MissingNumber(int array[], int num) {
+        // Your Code Here
+        int n = array.length;
+        int m = n+1;
+        int total_val = (m*(m+1))/2;
+        int sum_val = Arrays.stream(array).sum();
+        return total_val - sum_val;
+    }
+}
