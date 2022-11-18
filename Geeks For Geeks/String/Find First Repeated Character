@@ -1,0 +1,30 @@
+class Solution 
+{ 
+    String firstRepChar(String s) 
+    { 
+        // code here
+        char[] temp = s.toCharArray();
+        ArrayList<Character> list = new ArrayList<>(); 
+        String res = "";
+         
+        for (int i=0; i<=temp.length-1; i++) 
+        { 
+            char ch = temp[i]; 
+  
+             
+            // Checks for repeated character 
+            if (list.contains(ch)) 
+            {
+                res = res + ch;
+                return res;
+            }
+                
+            //Adds unique character to the list
+            else 
+                list.add(ch); 
+        } 
+  
+        //Returns False in case of no repetition
+        return "-1"; 
+    }
+} 
